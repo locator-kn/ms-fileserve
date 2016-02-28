@@ -1,19 +1,100 @@
 'use strict';
-const seneca = require('seneca')();
-const file = require('./lib/module');
-const database = require('./lib/database');
+const Glue = require('glue');
 
-require('dotenv').config({path: '../.env'});
+const path = require('path');
+const pwd = path.join(__dirname, '..', '/.env');
+require('dotenv').config({path: pwd});
 
-// select desired transport method
-const transportMethod = process.env['SENECA_TRANSPORT_METHOD'] || 'rabbitmq';
-const patternPin = 'role:file';
+const routes = require('./lib/module');
+const log = require('ms-utilities').logger;
 
-// init database and then seneca and expose functions
-database.connect()
-    .then(() => {
-        seneca
-            .use(transportMethod + '-transport')
-            .add(patternPin + ',cmd:get', file.getImage)
-            .listen({type: transportMethod, pin: patternPin});
+
+// declare  plugins
+var manifest = {
+    connections: [{
+        //host: process.env['API_HOST'] || 'localhost',
+        port: process.env['FILE_SERVE_PORT'] || 3453
+    }],
+    plugins: [{
+        'hapi-mongodb': [{
+            options: {
+                'url': 'mongodb://localhost:27017/locator',
+                'settings': {
+                    'db': {
+                        'native_parser': false
+                    }
+                }
+            }
+        }]
+    }, {
+        'inert': {}
+    }, {
+        'vision': {}
+    }, {
+        'hapi-swagger': {}
+    }, {
+        'hapi-auth-cookie': {}
+    }, {
+        'good': [{
+            options: {
+                requestPayload: true,
+                reporters: [{
+                    reporter: require('good-console'),
+                    events: {log: '*', response: '*', request: '*'}
+                }]
+            }
+        }]
+    }]
+};
+
+
+// compose Server with plugins
+Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
+
+    if (err) {
+        throw err;
+    }
+
+    server.route(routes);
+
+    // log errors before response is sent back to user
+    server.ext('onPreResponse', (request, reply) => {
+        const response = request.response;
+        if (!response.isBoom) {
+            return reply.continue();
+        }
+
+        // log 500 code
+        if (response.output.statusCode === 500) {
+            log.fatal('Server Error', {
+                error: util.clone(response.output.payload),
+                requestData: request.orig,
+                path: request.path
+            });
+
+            // delete error message
+            response.output.payload.message = '';
+        }
+
+
+        // log joi validation error
+        if (response.data && response.data.isJoi) {
+            log.fatal('Validation error', {
+                response: response,
+                requestData: request.orig,
+                path: request.path
+            });
+        }
+
+        reply.continue();
     });
+    
+    // start the server
+    server.start((err) => {
+
+        if (err) {
+            throw err;
+        }
+        console.log('Server running at:', server.info.uri);
+    });
+});

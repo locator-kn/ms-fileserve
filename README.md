@@ -2,16 +2,4 @@
 
 This repository is used to serve files out of a mongodb.
 
-It uses `seneca.js` and `rabbitmq`.
-
-The business-logic lives in the `lib` directory. The `index.js` is used to expose the functionality.
-
-## Tests
-
-The repo contains also some tests with a sample to mock the database.
-
-To run the tests, simple call `npm run test`.
-
-## Documentation
-
-The documentation can be found on the branch `gh-pages`. To update/generate the docs, call `npm run gendocs`
+This is a seperate internal server instance. All file related requests to [cor](https://github.com/locator-kn/cor) are proxied to this server. The files are stored/retrieved in/from a mongo db.
