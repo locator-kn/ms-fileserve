@@ -6,7 +6,8 @@ const pwd = path.join(__dirname, '..', '/.env');
 require('dotenv').config({path: pwd});
 
 const routes = require('./lib/module');
-const log = require('ms-utilities').logger;
+const util = require('ms-utilities');
+const log = util.logger;
 
 
 // declare  plugins
@@ -57,25 +58,24 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
 
     server.route(routes);
 
+    server.on('request-error', (request, err) => {
+
+        // log 500 code
+        log.fatal('Server Error', {
+            error: err,
+            requestData: request.orig,
+            path: request.path
+        });
+
+    });
+
+
     // log errors before response is sent back to user
     server.ext('onPreResponse', (request, reply) => {
         const response = request.response;
         if (!response.isBoom) {
             return reply.continue();
         }
-
-        // log 500 code
-        if (response.output.statusCode === 500) {
-            log.fatal('Server Error', {
-                error: util.clone(response.output.payload),
-                requestData: request.orig,
-                path: request.path
-            });
-
-            // delete error message
-            response.output.payload.message = '';
-        }
-
 
         // log joi validation error
         if (response.data && response.data.isJoi) {
@@ -88,7 +88,7 @@ Glue.compose(manifest, {relativeTo: __dirname}, (err, server) => {
 
         reply.continue();
     });
-    
+
     // start the server
     server.start((err) => {
 
