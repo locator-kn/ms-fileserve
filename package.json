@@ -7,6 +7,9 @@
     "test": "ava",
     "documentation": "documentation index.js -o docs/ -f html -g",
     "gendocs": "./generate_docs.sh"
+  },"repository": {
+    "type": "git",
+    "url": "git+https://github.com/locator-kn/ms-fileserve.git"
   },
   "author": "",
   "license": "MIT",
@@ -18,19 +21,15 @@
     "good": "^6.4.0",
     "good-console": "^5.2.0",
     "gridfs-stream": "^1.1.1",
-    "hapi": "^13.2.1",
+    "hapi": "^13.3.0",
     "hapi-auth-cookie": "^6.1.1",
     "hapi-mongodb": "^6.0.0",
-    "hapi-swagger": "^4.2.1",
+    "hapi-swagger": "^5.0.0",
     "inert": "^3.2.0",
     "joi": "^8.0.4",
     "mongodb": "^2.0.49",
-    "ms-utilities": "latest",
+    "ms-utilities": "^4.0.0",
     "shelljs": "^0.6.0",
-    "vision": "^4.0.1"
-  },
-  "devDependencies": {
-    "ava": "^0.13.0",
-    "proxyquire": "^1.7.3"
+    "vision": "^4.1.0"
   }
 }
