@@ -38,8 +38,6 @@ var manifest = {
     }, {
         'hapi-swagger': {}
     }, {
-        'hapi-auth-cookie': {}
-    }, {
         'good': [{
             options: {
                 requestPayload: true,
