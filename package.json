@@ -7,7 +7,8 @@
     "test": "ava",
     "documentation": "documentation index.js -o docs/ -f html -g",
     "gendocs": "./generate_docs.sh"
-  },"repository": {
+  },
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/locator-kn/ms-fileserve.git"
   },
@@ -23,7 +24,7 @@
     "gridfs-stream": "^1.1.1",
     "hapi": "^13.3.0",
     "hapi-mongodb": "^6.0.0",
-    "hapi-swagger": "^5.0.0",
+    "hapi-swagger": "^5.0.1",
     "inert": "^3.2.0",
     "joi": "^8.0.4",
     "mongodb": "^2.0.49",
