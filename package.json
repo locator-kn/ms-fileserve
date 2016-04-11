@@ -20,7 +20,7 @@
     "glue": "^3.2.0",
     "gm": "^1.21.1",
     "good": "^6.4.0",
-    "good-console": "^5.2.0",
+    "good-console": "^5.3.1",
     "gridfs-stream": "^1.1.1",
     "hapi": "^13.3.0",
     "hapi-mongodb": "^6.0.0",
