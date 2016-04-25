@@ -28,7 +28,7 @@
     "joi": "^8.0.5",
     "mongodb": "^2.1.16",
     "ms-utilities": "^4.0.0",
-    "shelljs": "^0.6.0",
+    "shelljs": "^0.7.0",
     "vision": "^4.1.0"
   }
 }
