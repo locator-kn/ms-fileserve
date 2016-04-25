@@ -20,7 +20,7 @@
     "glue": "^3.2.0",
     "gm": "^1.22.0",
     "good": "^6.4.0",
-    "good-console": "^5.2.0",
+    "good-console": "^6.1.0",
     "hapi": "^13.3.0",
     "hapi-mongodb": "^6.0.0",
     "hapi-swagger": "^5.0.1",
