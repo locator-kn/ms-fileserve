@@ -35,11 +35,10 @@ var manifest = {
             plugin: {
                 register: 'good',
                 options: {
-                    requestPayload: true,
-                    reporters: [{
-                        reporter: require('good-console'),
-                        events: {log: '*', response: '*', request: '*'}
-                    }]
+                    ops: false,
+                    reporters: {
+                        console: [{module: 'good-console'}, 'stdout']
+                    }
                 }
             }
         }]
