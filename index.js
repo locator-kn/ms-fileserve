@@ -9,10 +9,6 @@ const routes = require('./lib/module');
 const util = require('ms-utilities');
 const log = util.logger;
 
-if (!(require('shelljs').which('convert'))) {
-    throw new Error('ImageMagick not installed. Unable to run application. Please install it! Server shut down');
-}
-
 
 // declare  plugins
 var manifest = {
@@ -39,11 +35,10 @@ var manifest = {
             plugin: {
                 register: 'good',
                 options: {
-                    requestPayload: true,
-                    reporters: [{
-                        reporter: require('good-console'),
-                        events: {log: '*', response: '*', request: '*'}
-                    }]
+                    ops: false,
+                    reporters: {
+                        console: [{module: 'good-console'}, 'stdout']
+                    }
                 }
             }
         }]
