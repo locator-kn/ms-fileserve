@@ -15,7 +15,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "boom": "^3.1.1",
+    "boom": "^3.1.3",
     "dotenv": "^2.0.0",
     "glue": "^3.2.0",
     "gm": "^1.22.0",
