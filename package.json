@@ -21,7 +21,7 @@
     "gm": "^1.22.0",
     "good": "^7.0.0",
     "good-console": "^6.1.1",
-    "hapi": "^13.4.0",
+    "hapi": "^16.0.3",
     "hapi-mongodb": "^6.0.0",
     "hapi-swagger": "^5.0.1",
     "inert": "^4.0.0",
