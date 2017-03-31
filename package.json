@@ -25,7 +25,7 @@
     "hapi-mongodb": "^6.0.0",
     "hapi-swagger": "^5.0.1",
     "inert": "^4.0.0",
-    "joi": "^8.0.5",
+    "joi": "^10.3.2",
     "mongodb": "^2.1.16",
     "ms-utilities": "^4.0.0",
     "vision": "^4.1.0"
